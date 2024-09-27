@@ -1,13 +1,13 @@
 ## First request
 curl http://localhost:8081/get
 
-## Second resuest
+## Second request (not valid)
 curl --header "Content-Type: application/json" \
   --request POST \
   --data {"bad": "request"} \
   http://localhost:8081/add
 
-## Third request
+## Third request (valid)
 curl --header "Content-Type: application/json" \
   --request POST \
   --data @model.json \
