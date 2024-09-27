@@ -96,7 +96,11 @@ async fn main() {
 
 
     // Make address of our server
-    let addr = SocketAddr::from(([127, 0, 0, 1], conn_args.server_port));
+    let mut right_server_host = &conn_args.server_host[..];
+    if conn_args.server_host == "localhost" {
+        right_server_host = "127.0.0.1";
+    }
+    let addr: SocketAddr = format!("{}:{}", right_server_host, conn_args.server_port).parse().expect("Unable to parse socket address");;
 
     // Run server
     axum::Server::bind(&addr)
@@ -148,4 +152,3 @@ async fn get_orders(State(state): State<OrdersStateType>) -> impl IntoResponse {
     info!("Fetched all orders");
     (StatusCode::OK, pretty_json_orders)
 }
-
